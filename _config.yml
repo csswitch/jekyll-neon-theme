@@ -1,0 +1,40 @@
+title: "Neon Noir"
+description: "Your cyberpunk-inspired Jekyll site"
+url: ""
+baseurl: ""
+author:
+  name: "Your Name"
+  email: "you@example.com"
+
+# Neon Noir theme configuration
+neon:
+  accent: "magenta"      # magenta | cyan | amber | green
+  grid: true             # show background perspective grid
+  scanlines: true        # subtle CRT scanline overlay
+  glitch: true           # glitch animation on page load
+  particles: true        # floating neon particles
+
+# Plugins
+plugins:
+  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+
+paginate: 6
+paginate_path: "/page:num/"
+
+# Collections
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+permalink: /:year/:month/:day/:title/
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge

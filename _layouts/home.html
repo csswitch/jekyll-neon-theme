@@ -1,0 +1,65 @@
+---
+layout: default
+---
+<div class="container">
+
+  {% assign featured = site.posts | first %}
+  {% if featured %}
+  <div class="featured-card">
+    <div class="featured-card__title">
+      <a href="{{ featured.url | relative_url }}">{{ featured.title }}</a>
+    </div>
+    <div class="featured-card__meta">
+      {{ featured.date | date: "%Y.%m.%d" }} &nbsp;//&nbsp; {{ site.author.name }}
+    </div>
+    {% if featured.description %}
+    <p class="featured-card__excerpt">{{ featured.description }}</p>
+    {% elsif featured.excerpt %}
+    <p class="featured-card__excerpt">{{ featured.excerpt | strip_html | truncate: 160 }}</p>
+    {% endif %}
+    <a href="{{ featured.url | relative_url }}" class="featured-card__link">Read Post</a>
+  </div>
+  {% endif %}
+
+  <div class="section-title">Latest Transmissions</div>
+
+  <div class="post-grid">
+    {% for post in site.posts offset: 1 limit: 6 %}
+    <a href="{{ post.url | relative_url }}" class="post-card">
+      <div class="post-card__date">{{ post.date | date: "%Y.%m.%d" }}</div>
+      <div class="post-card__title">{{ post.title }}</div>
+      {% if post.description %}
+      <p class="post-card__excerpt">{{ post.description }}</p>
+      {% elsif post.excerpt %}
+      <p class="post-card__excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+      {% endif %}
+      {% if post.tags.size > 0 %}
+      <div class="post-card__tags">
+        {% for tag in post.tags limit: 3 %}
+        <span class="tag-chip">{{ tag }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </a>
+    {% endfor %}
+  </div>
+
+  {% if paginator.total_pages > 1 %}
+  <nav class="neon-pagination" aria-label="Pagination">
+    {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path | relative_url }}">&laquo; Prev</a>
+    {% endif %}
+    {% for i in (1..paginator.total_pages) %}
+    {% if i == paginator.page %}
+    <span class="current">{{ i }}</span>
+    {% else %}
+    <a href="{% if i == 1 %}{{ '/' | relative_url }}{% else %}{{ site.paginate_path | relative_url | replace: ':num', i }}{% endif %}">{{ i }}</a>
+    {% endif %}
+    {% endfor %}
+    {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | relative_url }}">Next &raquo;</a>
+    {% endif %}
+  </nav>
+  {% endif %}
+
+</div>

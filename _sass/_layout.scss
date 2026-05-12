@@ -1,0 +1,176 @@
+@import 'variables';
+
+// ── Page wrapper ──────────────────────────────────────────────────────────────
+.neon-wrap {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+// ── Progress bar ──────────────────────────────────────────────────────────────
+.neon-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, $magenta, $cyan);
+  box-shadow: $glow-magenta;
+  z-index: 1000;
+  transition: width 0.1s linear;
+}
+
+// ── Navigation ────────────────────────────────────────────────────────────────
+.neon-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba($bg, 0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba($magenta, 0.2);
+  box-shadow: 0 1px 0 rgba($magenta, 0.1), 0 4px 24px rgba(0,0,0,0.6);
+
+  &__inner {
+    max-width: $max-width;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    font-family: $font-heading;
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: $text;
+
+    span {
+      @include neon-text($magenta);
+    }
+  }
+
+  &__links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    padding: 0; margin: 0;
+
+    a {
+      font-family: $font-heading;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: $text-muted;
+      text-decoration: none;
+      transition: color 0.2s, text-shadow 0.2s;
+      padding: 0.25rem 0;
+
+      &:hover, &.active {
+        @include neon-text($cyan);
+      }
+    }
+  }
+
+  &__toggle {
+    display: none;
+    background: none;
+    border: 1px solid rgba($magenta, 0.4);
+    color: $magenta;
+    padding: 0.4rem 0.6rem;
+    border-radius: $radius;
+    cursor: pointer;
+    font-size: 1rem;
+
+    &:hover { box-shadow: $glow-magenta; }
+  }
+}
+
+// ── Main content ──────────────────────────────────────────────────────────────
+.neon-main {
+  flex: 1;
+  padding: 3rem 0 4rem;
+}
+
+// ── Footer ────────────────────────────────────────────────────────────────────
+.neon-footer {
+  border-top: 1px solid rgba($magenta, 0.2);
+  padding: 1.5rem 0;
+  text-align: center;
+
+  &__text {
+    font-family: $font-heading;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: $text-dim;
+
+    a { color: $magenta; }
+  }
+}
+
+// ── Glitch animation ──────────────────────────────────────────────────────────
+@keyframes glitch-1 {
+  0%   { @include glitch-clip(0%, 30%); transform: translate(-2px, 0); }
+  20%  { @include glitch-clip(20%, 55%); transform: translate(2px, 0); }
+  40%  { @include glitch-clip(40%, 70%); transform: translate(-1px, 0); }
+  60%  { @include glitch-clip(60%, 85%); transform: translate(1px, 0); }
+  80%  { @include glitch-clip(10%, 40%); transform: translate(-2px, 0); }
+  100% { @include glitch-clip(0%, 100%); transform: translate(0, 0); }
+}
+
+@keyframes glitch-2 {
+  0%   { @include glitch-clip(50%, 80%); transform: translate(2px, 0); }
+  25%  { @include glitch-clip(15%, 45%); transform: translate(-2px, 0); }
+  50%  { @include glitch-clip(65%, 90%); transform: translate(1px, 0); }
+  75%  { @include glitch-clip(30%, 60%); transform: translate(-1px, 0); }
+  100% { @include glitch-clip(0%, 100%); transform: translate(0, 0); }
+}
+
+.glitch {
+  position: relative;
+  display: inline-block;
+
+  &::before,
+  &::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &::before {
+    color: $cyan;
+    animation: glitch-1 0.4s steps(1) forwards;
+    animation-delay: 0.1s;
+  }
+
+  &::after {
+    color: $magenta;
+    animation: glitch-2 0.4s steps(1) forwards;
+    animation-delay: 0.2s;
+  }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+@media (max-width: 700px) {
+  .neon-nav {
+    &__links { display: none; flex-direction: column; gap: 0.5rem; padding: 1rem 1.5rem; }
+    &__links.open { display: flex; }
+    &__toggle { display: block; }
+
+    &__inner { flex-wrap: wrap; height: auto; padding-top: 0.75rem; padding-bottom: 0.75rem; }
+  }
+}

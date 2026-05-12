@@ -1,0 +1,143 @@
+@import 'variables';
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  background: $bg;
+}
+
+body {
+  background: $bg;
+  color: $text;
+  font-family: $font-body;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+
+// ── Perspective Grid Background ───────────────────────────────────────────────
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  // Vertical lines (converging — faux perspective)
+  background-image:
+    linear-gradient(rgba(224, 64, 251, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(224, 64, 251, 0.07) 1px, transparent 1px);
+  background-size: 60px 60px;
+  background-position: center center;
+
+  // Bottom-heavy fade (floor perspective illusion)
+  mask-image: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 40%, transparent 70%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 40%, transparent 70%);
+}
+
+// ── Scanlines ─────────────────────────────────────────────────────────────────
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.04) 0px, rgba(0, 0, 0, 0.04) 1px,
+    transparent 1px, transparent 3px
+  );
+}
+
+// ── Typography ────────────────────────────────────────────────────────────────
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-heading;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: $text;
+}
+
+h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
+h2 { font-size: clamp(1.3rem, 3vw, 2rem); margin-top: 2.5rem; margin-bottom: 1rem; }
+h3 { font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; }
+
+a {
+  color: $magenta;
+  text-decoration: none;
+  transition: color 0.2s, text-shadow 0.2s;
+
+  &:hover {
+    @include neon-text($magenta);
+  }
+}
+
+p { margin-bottom: 1.25rem; }
+
+code, pre {
+  font-family: $font-mono;
+  font-size: 0.875em;
+}
+
+code {
+  background: rgba($cyan, 0.08);
+  border: 1px solid rgba($cyan, 0.2);
+  border-radius: 3px;
+  padding: 0.15em 0.4em;
+  color: $cyan;
+}
+
+pre {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba($magenta, 0.3);
+  border-radius: $radius;
+  padding: 1.25rem;
+  overflow-x: auto;
+  position: relative;
+  margin-bottom: 1.5rem;
+
+  &::before {
+    content: '// CODE';
+    position: absolute;
+    top: 8px; right: 12px;
+    font-family: $font-mono;
+    font-size: 0.65rem;
+    color: $text-dim;
+    letter-spacing: 0.1em;
+  }
+
+  code {
+    background: none;
+    border: none;
+    padding: 0;
+    color: $text;
+  }
+}
+
+blockquote {
+  border-left: 3px solid $magenta;
+  padding: 0.75rem 1.25rem;
+  margin: 1.5rem 0;
+  background: rgba($magenta, 0.05);
+  border-radius: 0 $radius $radius 0;
+  box-shadow: inset 4px 0 12px rgba($magenta, 0.1);
+
+  p { color: $text-muted; margin-bottom: 0; font-style: italic; }
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, $magenta, transparent);
+  margin: 2.5rem 0;
+  opacity: 0.4;
+}
+
+img { max-width: 100%; border-radius: $radius; }
+
+ul, ol { padding-left: 1.5rem; margin-bottom: 1.25rem; }
+li { margin-bottom: 0.35rem; }
