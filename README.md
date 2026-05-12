@@ -1,5 +1,13 @@
 # Neon Noir — Cyberpunk Jekyll Theme
 
+[![License: csswitch Commercial](https://img.shields.io/badge/license-csswitch%20commercial-blue.svg)](./LICENSE)
+[![Buy on Gumroad](https://img.shields.io/badge/Buy-%2449-brightgreen.svg)](https://csswitch.gumroad.com/l/csswitch-neon)
+[![Live Demo](https://img.shields.io/badge/demo-live-orange.svg)](https://csswitch.github.io/jekyll-neon-theme/)
+
+> **⚠️ License notice:** This theme is source-available but **not free to use**.  
+> Viewing and learning from the code is welcome. Deploying it on any live site requires a [paid license](https://csswitch.gumroad.com/l/csswitch-neon).  
+> See [LICENSE](./LICENSE) for full terms.
+
 [![MIT License](https://img.shields.io/badge/license-MIT-e040fb.svg)](LICENSE)
 [![Jekyll](https://img.shields.io/badge/jekyll-4.3-e040fb.svg)](https://jekyllrb.com)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-compatible-e040fb.svg)](https://pages.github.com)
